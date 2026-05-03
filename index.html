@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reality Explorer — Deconstruct & Navigate Reality | 现实解析器</title>
+<meta name="description" content="A computable model of reality across five layers — physical, biological, cognitive, social, digital. Trace causality, reveal hidden structures, simulate ripple effects across scales. Bilingual EN / 中文.">
+<meta name="keywords" content="reality model, layered reality, causality engine, systems thinking, knowledge graph, hidden structures, social systems, 现实模型, 因果引擎, 系统思维">
+<meta name="author" content="Gewenbo">
+<link rel="canonical" href="https://reality.psyverse.fun/">
+<link rel="alternate" hreflang="en" href="https://reality.psyverse.fun/">
+<link rel="alternate" hreflang="zh-CN" href="https://reality.psyverse.fun/">
+<link rel="alternate" hreflang="x-default" href="https://reality.psyverse.fun/">
+<meta property="og:title" content="Reality Explorer — A System to Deconstruct Reality">
+<meta property="og:description" content="Five layers, one map. Causality, hidden structure, ripple simulation, knowledge graph.">
+<meta property="og:url" content="https://reality.psyverse.fun/">
+<meta property="og:site_name" content="Psyverse">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reality Explorer">
+<meta name="twitter:description" content="Five layers, one map. Reality made navigable.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0d18">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Reality Explorer","alternateName":"现实解析器","description":"A computable, layered model of reality.","url":"https://reality.psyverse.fun/","inLanguage":["en","zh-CN"],"author":{"@type":"Person","name":"Gewenbo","url":"https://psyverse.fun/"},"publisher":{"@type":"Organization","name":"Psyverse","url":"https://psyverse.fun/"}}</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0d18'/><circle cx='16' cy='16' r='3' fill='none' stroke='%23ff6b9d' stroke-width='1.6'/><circle cx='16' cy='16' r='6' fill='none' stroke='%23ffd166' stroke-width='1.2' opacity='.85'/><circle cx='16' cy='16' r='9' fill='none' stroke='%23a78bfa' stroke-width='.9' opacity='.7'/><circle cx='16' cy='16' r='12' fill='none' stroke='%2356e6ff' stroke-width='.6' opacity='.55'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://analytics-dashboard-two-blue.vercel.app/tracker.js" defer></script>
+<style>
+:root{
+  --bg:#0a0d18; --bg2:#10142a; --bg3:#181d3a; --rim:#22284a;
+  --line:rgba(167,139,250,.16); --line-strong:rgba(167,139,250,.32);
+  --text:#e9ecf6; --dim:#8d92b3; --faint:#4d5170;
+  --L1:#56e6ff;       /* physical — cyan */
+  --L2:#5ee2a0;       /* biological — green */
+  --L3:#a78bfa;       /* cognitive — violet */
+  --L4:#ffd166;       /* social — amber */
+  --L5:#ff6b9d;       /* digital — magenta */
+  --display:'IBM Plex Serif',serif;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;
+  min-height:100vh;overflow-x:hidden;
+}
+body.zh{font-family:'Noto Sans SC',sans-serif;}
+body.zh .display{font-family:'Noto Serif SC',serif;}
+.display{font-family:var(--display);letter-spacing:-.012em;}
+.mono{font-family:var(--mono);}
+[data-en],[data-zh]{display:inline;}
+body:not(.zh) [data-zh]{display:none;}
+body.zh [data-en]{display:none;}
+a{color:var(--L1);text-decoration:none;}
+a:hover{color:var(--L3);}
+
+/* ─── BACKGROUND ─── */
+.bg-grid{position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(circle at 18% 22%,rgba(86,230,255,.05) 0%,transparent 45%),
+    radial-gradient(circle at 82% 78%,rgba(255,107,157,.05) 0%,transparent 45%),
+    radial-gradient(circle at 50% 50%,rgba(167,139,250,.04) 0%,transparent 60%),
+    var(--bg);
+  background-image:
+    linear-gradient(rgba(167,139,250,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,.04) 1px, transparent 1px);
+  background-size:60px 60px, 60px 60px, 100% 100%;
+  background-position:center center;
+}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(10,13,24,.78);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1320px;margin:0 auto;padding:14px 32px;
+  display:flex;align-items:center;gap:20px;}
+.brand{display:flex;align-items:center;gap:12px;font-weight:600;}
+.brand-mark{width:32px;height:32px;border-radius:8px;
+  background:radial-gradient(circle at 30% 30%,var(--L3),var(--bg2) 70%);
+  border:1px solid var(--L3);position:relative;}
+.brand-mark::after{content:"";position:absolute;inset:7px;border-radius:50%;
+  background:linear-gradient(135deg,var(--L1),var(--L5));}
+.brand-text{font-family:var(--display);font-size:1.15rem;font-weight:600;letter-spacing:-.01em;}
+.nav-links{display:flex;gap:22px;margin-left:auto;}
+.nav-links a{color:var(--dim);font-size:.82rem;font-weight:500;
+  transition:color .15s;font-family:var(--mono);}
+.nav-links a:hover{color:var(--L1);}
+.lang-btn{padding:6px 14px;border:1px solid var(--line-strong);background:transparent;
+  color:var(--text);border-radius:999px;font-family:var(--mono);font-size:.78rem;cursor:pointer;
+  transition:all .15s;}
+.lang-btn:hover{border-color:var(--L3);color:var(--L3);}
+@media(max-width:880px){.nav-links{display:none;}}
+
+section{padding:110px 32px;position:relative;}
+.wrap{max-width:1320px;margin:0 auto;}
+.eyebrow{display:inline-block;font-family:var(--mono);font-size:.74rem;
+  color:var(--L1);letter-spacing:.2em;text-transform:uppercase;
+  padding:5px 14px;border:1px solid var(--line-strong);border-radius:999px;
+  margin-bottom:22px;}
+h1{font-family:var(--display);font-size:clamp(2.4rem,6vw,5.4rem);
+  line-height:1.02;letter-spacing:-.025em;margin-bottom:24px;font-weight:600;}
+h2{font-family:var(--display);font-size:clamp(1.9rem,4.2vw,3.4rem);
+  line-height:1.05;letter-spacing:-.02em;margin-bottom:14px;font-weight:600;}
+h3{font-family:var(--display);font-size:1.4rem;font-weight:600;margin-bottom:8px;}
+h4{font-family:var(--sans);font-size:.74rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--L3);
+  margin-bottom:14px;}
+.lede{font-size:1.12rem;color:var(--dim);max-width:760px;line-height:1.7;}
+.section-head{margin-bottom:48px;max-width:840px;}
+
+/* ─── HERO ─── */
+.hero{padding:160px 32px 80px;text-align:center;}
+.hero h1{margin:0 auto 26px;max-width:1080px;}
+.hero h1 .grad{background:linear-gradient(120deg,var(--L1) 0%,var(--L3) 35%,var(--L4) 65%,var(--L5));
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero .lede{margin:0 auto 36px;font-size:1.18rem;}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn{padding:13px 26px;border-radius:8px;font-family:var(--mono);font-size:.82rem;
+  font-weight:500;cursor:pointer;transition:all .2s;
+  display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;}
+.btn-pri{background:var(--L3);color:var(--bg);}
+.btn-pri:hover{background:transparent;border-color:var(--L3);color:var(--L3);box-shadow:0 0 24px rgba(167,139,250,.4);}
+.btn-sec{background:transparent;border-color:var(--line-strong);color:var(--text);}
+.btn-sec:hover{border-color:var(--L1);color:var(--L1);}
+
+/* ─── LAYER RAIL ─── */
+.layer-rail{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin-top:80px;
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--line);}
+@media(max-width:740px){.layer-rail{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:440px){.layer-rail{grid-template-columns:1fr;}}
+.rail-cell{padding:24px 20px;background:var(--bg);position:relative;}
+.rail-cell::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;}
+.rail-cell.l1::before{background:var(--L1);} .rail-cell.l1 .id{color:var(--L1);}
+.rail-cell.l2::before{background:var(--L2);} .rail-cell.l2 .id{color:var(--L2);}
+.rail-cell.l3::before{background:var(--L3);} .rail-cell.l3 .id{color:var(--L3);}
+.rail-cell.l4::before{background:var(--L4);} .rail-cell.l4 .id{color:var(--L4);}
+.rail-cell.l5::before{background:var(--L5);} .rail-cell.l5 .id{color:var(--L5);}
+.rail-cell .id{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;}
+.rail-cell .name{font-family:var(--display);font-size:1.08rem;font-weight:600;margin:6px 0 4px;}
+.rail-cell .scope{font-size:.78rem;color:var(--faint);font-family:var(--mono);}
+
+/* ─── MODULE 1 — REALITY MAP ─── */
+.map-stage{margin-top:30px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:14px;padding:28px;}
+.map-zoom{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px;font-family:var(--mono);font-size:.74rem;}
+.map-zoom button{padding:7px 14px;border:1px solid var(--line);background:transparent;
+  color:var(--dim);border-radius:6px;cursor:pointer;transition:all .15s;}
+.map-zoom button.active,.map-zoom button:hover{border-color:var(--L3);color:var(--L3);background:rgba(167,139,250,.06);}
+.map-canvas{position:relative;height:520px;background:radial-gradient(ellipse at center,var(--bg3),var(--bg2));
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+.map-canvas svg{width:100%;height:100%;display:block;}
+.map-detail{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:840px){.map-detail{grid-template-columns:1fr;}}
+.scale-card{padding:20px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;
+  border-left:3px solid;}
+.scale-card .num{font-family:var(--mono);font-size:.7rem;color:var(--dim);letter-spacing:.12em;}
+.scale-card .what{font-family:var(--display);font-size:1.2rem;font-weight:600;margin:4px 0 6px;}
+.scale-card .desc{font-size:.86rem;color:var(--text);line-height:1.65;}
+.scale-card .ex{margin-top:10px;font-family:var(--mono);font-size:.74rem;color:var(--dim);}
+
+/* ─── MODULE 2 — CAUSALITY ─── */
+.cause-stage{margin-top:30px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:14px;padding:28px;}
+.cause-input-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:16px;}
+@media(max-width:600px){.cause-input-row{grid-template-columns:1fr;}}
+.cause-input{padding:13px 18px;background:var(--bg3);border:1px solid var(--line-strong);
+  border-radius:8px;color:var(--text);font-family:var(--sans);font-size:.95rem;outline:none;}
+.cause-input:focus{border-color:var(--L3);}
+.cause-presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;}
+.cause-chip{padding:6px 12px;background:var(--bg3);border:1px solid var(--line);
+  border-radius:999px;font-size:.78rem;color:var(--dim);cursor:pointer;
+  transition:all .15s;font-family:var(--mono);}
+.cause-chip:hover{border-color:var(--L1);color:var(--L1);}
+.cause-tree{padding:24px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;
+  font-family:var(--sans);}
+.cause-phenom{font-family:var(--display);font-size:1.4rem;font-weight:600;color:var(--L4);
+  margin-bottom:18px;padding-bottom:14px;border-bottom:1px dashed var(--line);}
+.cause-chain{display:flex;flex-direction:column;gap:6px;}
+.cause-link{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:10px 14px;
+  background:var(--bg2);border:1px solid var(--line);border-radius:8px;
+  border-left:3px solid;}
+.cause-link.l1{border-left-color:var(--L1);} .cause-link.l1 .layer-tag{color:var(--L1);}
+.cause-link.l2{border-left-color:var(--L2);} .cause-link.l2 .layer-tag{color:var(--L2);}
+.cause-link.l3{border-left-color:var(--L3);} .cause-link.l3 .layer-tag{color:var(--L3);}
+.cause-link.l4{border-left-color:var(--L4);} .cause-link.l4 .layer-tag{color:var(--L4);}
+.cause-link.l5{border-left-color:var(--L5);} .cause-link.l5 .layer-tag{color:var(--L5);}
+.cause-link .step{font-family:var(--mono);font-size:.75rem;color:var(--dim);min-width:54px;}
+.cause-link .text{font-size:.94rem;}
+.cause-link .layer-tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+  margin-bottom:3px;text-transform:uppercase;display:block;}
+.cause-arrow{text-align:center;color:var(--faint);font-size:1.2rem;line-height:1;margin:2px 0;}
+.cause-summary{margin-top:18px;padding:14px 16px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:8px;font-style:italic;color:var(--dim);font-size:.92rem;}
+.cause-summary strong{color:var(--L3);font-style:normal;}
+
+/* ─── MODULE 3 — HIDDEN STRUCTURES ─── */
+.hid-stage{margin-top:30px;display:grid;grid-template-columns:280px 1fr;gap:24px;}
+@media(max-width:880px){.hid-stage{grid-template-columns:1fr;}}
+.hid-list{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px;
+  display:flex;flex-direction:column;gap:6px;}
+.hid-item{padding:12px 14px;border:1px solid var(--line);border-radius:8px;cursor:pointer;
+  transition:all .2s;background:var(--bg3);}
+.hid-item:hover{border-color:var(--L1);}
+.hid-item.active{border-color:var(--L3);background:rgba(167,139,250,.08);}
+.hid-item .name{font-family:var(--display);font-size:1.04rem;font-weight:600;margin-bottom:3px;}
+.hid-item .visible{font-family:var(--mono);font-size:.7rem;color:var(--dim);letter-spacing:.08em;}
+.hid-detail{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:30px;}
+.hid-detail .surface{font-family:var(--mono);font-size:.74rem;color:var(--L4);
+  letter-spacing:.14em;margin-bottom:6px;text-transform:uppercase;}
+.hid-detail .name{font-family:var(--display);font-size:2rem;font-weight:600;margin-bottom:18px;}
+.hid-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+@media(max-width:780px){.hid-row{grid-template-columns:1fr;}}
+.hid-card{padding:18px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;
+  border-top:3px solid;}
+.hid-card.incentives{border-top-color:var(--L4);}
+.hid-card.power{border-top-color:var(--L5);}
+.hid-card.info{border-top-color:var(--L1);}
+.hid-card .k{font-family:var(--mono);font-size:.7rem;color:var(--dim);
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;}
+.hid-card h5{font-family:var(--display);font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.hid-card p{font-size:.88rem;color:var(--text);line-height:1.65;}
+.hid-card ul{margin-top:8px;margin-left:14px;color:var(--dim);font-size:.84rem;}
+.hid-card ul li{margin-bottom:4px;}
+.hid-detail .punch{padding:18px;background:var(--bg3);border:1px solid var(--line);
+  border-radius:10px;font-family:var(--display);font-size:1.05rem;font-style:italic;color:var(--text);}
+.hid-detail .punch::before{content:"⌂  ";color:var(--L5);}
+
+/* ─── MODULE 4 — SIMULATOR ─── */
+.sim-stage{margin-top:30px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:14px;padding:28px;display:grid;grid-template-columns:340px 1fr;gap:28px;}
+@media(max-width:900px){.sim-stage{grid-template-columns:1fr;}}
+.sim-vars{display:flex;flex-direction:column;gap:18px;}
+.sim-var{padding:14px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;}
+.sim-var .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.sim-var .lbl{font-family:var(--display);font-size:.96rem;font-weight:600;}
+.sim-var .val{font-family:var(--mono);font-size:.86rem;color:var(--L3);font-weight:500;}
+.sim-var input[type=range]{-webkit-appearance:none;width:100%;height:4px;
+  background:var(--rim);border-radius:2px;outline:none;}
+.sim-var input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:16px;height:16px;background:var(--L3);
+  border-radius:50%;cursor:pointer;}
+.sim-var .hint{font-family:var(--mono);font-size:.7rem;color:var(--dim);margin-top:6px;}
+.sim-effects{display:flex;flex-direction:column;gap:10px;}
+.sim-fx{padding:14px 18px;background:var(--bg3);border:1px solid var(--line);border-radius:8px;
+  border-left:3px solid;display:grid;grid-template-columns:80px 1fr 80px;gap:14px;align-items:center;}
+.sim-fx.l1{border-left-color:var(--L1);} .sim-fx.l1 .tag{color:var(--L1);}
+.sim-fx.l2{border-left-color:var(--L2);} .sim-fx.l2 .tag{color:var(--L2);}
+.sim-fx.l3{border-left-color:var(--L3);} .sim-fx.l3 .tag{color:var(--L3);}
+.sim-fx.l4{border-left-color:var(--L4);} .sim-fx.l4 .tag{color:var(--L4);}
+.sim-fx.l5{border-left-color:var(--L5);} .sim-fx.l5 .tag{color:var(--L5);}
+.sim-fx .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;}
+.sim-fx .desc{font-size:.9rem;color:var(--text);}
+.sim-fx .delta{font-family:var(--mono);font-size:.86rem;text-align:right;color:var(--L4);}
+.sim-fx .delta.dn{color:var(--L5);}
+.sim-fx .delta.up{color:var(--L2);}
+
+/* ─── MODULE 5 — KNOWLEDGE GRAPH ─── */
+.kg-stage{margin-top:30px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:14px;padding:28px;}
+.kg-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;align-items:center;}
+.kg-search{flex:1;min-width:200px;padding:9px 14px;background:var(--bg3);
+  border:1px solid var(--line-strong);border-radius:8px;color:var(--text);
+  font-family:var(--sans);font-size:.86rem;outline:none;}
+.kg-search:focus{border-color:var(--L3);}
+.kg-filter{padding:7px 12px;background:var(--bg3);border:1px solid var(--line);
+  border-radius:6px;color:var(--dim);font-family:var(--mono);font-size:.74rem;cursor:pointer;}
+.kg-filter.l1.active{border-color:var(--L1);color:var(--L1);background:rgba(86,230,255,.06);}
+.kg-filter.l2.active{border-color:var(--L2);color:var(--L2);background:rgba(94,226,160,.06);}
+.kg-filter.l3.active{border-color:var(--L3);color:var(--L3);background:rgba(167,139,250,.06);}
+.kg-filter.l4.active{border-color:var(--L4);color:var(--L4);background:rgba(255,209,102,.06);}
+.kg-filter.l5.active{border-color:var(--L5);color:var(--L5);background:rgba(255,107,157,.06);}
+.kg-canvas{height:600px;background:radial-gradient(ellipse at center,var(--bg3),var(--bg2));
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative;}
+.kg-canvas svg{width:100%;height:100%;display:block;}
+.kg-info{position:absolute;bottom:18px;left:18px;right:18px;max-width:520px;
+  padding:18px;background:rgba(16,20,42,.92);backdrop-filter:blur(10px);
+  border:1px solid var(--line-strong);border-radius:10px;display:none;}
+.kg-info.show{display:block;}
+.kg-info .layer{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;}
+.kg-info .name{font-family:var(--display);font-size:1.3rem;font-weight:600;margin:4px 0 8px;}
+.kg-info p{font-size:.88rem;color:var(--dim);line-height:1.6;}
+.kg-info .links{margin-top:10px;font-family:var(--mono);font-size:.74rem;color:var(--faint);}
+.kg-info .links strong{color:var(--L3);}
+
+/* ─── STRIPS ─── */
+.strip{padding:74px 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,var(--bg2),var(--bg));}
+.strip-quote{font-family:var(--display);font-size:clamp(1.7rem,3.4vw,2.6rem);
+  font-style:italic;text-align:center;max-width:980px;margin:0 auto;
+  font-weight:500;line-height:1.32;letter-spacing:-.015em;}
+.strip-quote .accent{color:var(--L4);font-style:normal;}
+.strip-attr{text-align:center;font-family:var(--mono);font-size:.74rem;
+  color:var(--dim);margin-top:20px;letter-spacing:.16em;text-transform:uppercase;}
+
+/* ─── FOOTER ─── */
+footer{padding:74px 32px 36px;border-top:1px solid var(--line);background:var(--bg2);}
+.foot-grid{max-width:1320px;margin:0 auto;
+  display:grid;grid-template-columns:2fr repeat(3,1fr);gap:32px;}
+@media(max-width:740px){.foot-grid{grid-template-columns:1fr 1fr;}}
+.foot-col h5{font-family:var(--mono);font-size:.7rem;color:var(--dim);
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
+.foot-col a{display:block;padding:5px 0;color:var(--dim);font-size:.86rem;transition:color .15s;}
+.foot-col a:hover{color:var(--L3);}
+.foot-bot{max-width:1320px;margin:32px auto 0;padding-top:22px;
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  font-family:var(--mono);font-size:.74rem;color:var(--faint);}
+
+.fadeup{opacity:0;transform:translateY(18px);transition:opacity .8s,transform .8s;}
+.fadeup.in{opacity:1;transform:translateY(0);}
+*::-webkit-scrollbar{width:8px;height:8px;}
+*::-webkit-scrollbar-track{background:var(--bg);}
+*::-webkit-scrollbar-thumb{background:var(--rim);border-radius:4px;}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <div class="brand-mark"></div>
+      <div class="brand-text" data-en="Reality Explorer" data-zh="现实解析器"></div>
+    </a>
+    <div class="nav-links">
+      <a href="#map" data-en="Map" data-zh="地图"></a>
+      <a href="#causality" data-en="Causality" data-zh="因果"></a>
+      <a href="#hidden" data-en="Hidden" data-zh="隐结构"></a>
+      <a href="#simulator" data-en="Simulator" data-zh="模拟器"></a>
+      <a href="#graph" data-en="Graph" data-zh="知识图"></a>
+    </div>
+    <button class="lang-btn" id="lang-btn">中文</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span data-en="A SYSTEM TO DECONSTRUCT REALITY" data-zh="一个解构现实的系统"></span>
+    </div>
+    <h1>
+      <span data-en="<span class='grad'>Reality</span><br>made navigable." data-zh="<span class='grad'>现实</span><br>，可被导航。"></span>
+    </h1>
+    <p class="lede">
+      <span data-en="Five layers — physical, biological, cognitive, social, digital — bound together by a single map. Trace causality. Reveal hidden structures. Move a slider, watch the ripples cross every scale." data-zh="五个层级 —— 物理、生物、认知、社会、数字 —— 由一张地图统一绑定。追踪因果。揭露隐藏结构。拨动滑块，看涟漪穿越每一个尺度。"></span>
+    </p>
+    <div class="cta-row">
+      <a href="#map" class="btn btn-pri"><span data-en="Open the map" data-zh="打开地图"></span> →</a>
+      <a href="#causality" class="btn btn-sec"><span data-en="Trace a cause" data-zh="追踪因果"></span></a>
+    </div>
+
+    <div class="layer-rail">
+      <div class="rail-cell l1"><span class="id">L1 · PHYSICAL</span><div class="name" data-en="Matter" data-zh="物质"></div><div class="scope">10⁻¹⁵ — 10²⁶ m</div></div>
+      <div class="rail-cell l2"><span class="id">L2 · BIOLOGICAL</span><div class="name" data-en="Life" data-zh="生命"></div><div class="scope">10⁻⁶ — 10² m</div></div>
+      <div class="rail-cell l3"><span class="id">L3 · COGNITIVE</span><div class="name" data-en="Mind" data-zh="心智"></div><div class="scope">~ 1 brain</div></div>
+      <div class="rail-cell l4"><span class="id">L4 · SOCIAL</span><div class="name" data-en="Civilization" data-zh="文明"></div><div class="scope">~ 8 × 10⁹</div></div>
+      <div class="rail-cell l5"><span class="id">L5 · DIGITAL</span><div class="name" data-en="Network" data-zh="网络"></div><div class="scope">~ 10²⁵ flops</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<section class="strip">
+  <div class="wrap">
+    <p class="strip-quote">
+      <span data-en="Reality is not <span class='accent'>one thing</span>. It is <span class='accent'>five</span>, stacked, leaking into each other." data-zh="现实不是<span class='accent'>一件事</span>，而是<span class='accent'>五层</span>，互相堆叠，互相渗透。"></span>
+    </p>
+    <p class="strip-attr" data-en="— Reality Explorer · Premise" data-zh="— 现实解析器 · 命题"></p>
+  </div>
+</section>
+
+<!-- MODULE 1 — REALITY MAP -->
+<section id="map">
+  <div class="wrap">
+    <div class="section-head">
+      <h4>Module 01 · <span data-en="Multi-Layer Reality Map" data-zh="多层现实地图"></span></h4>
+      <h2><span data-en="From a quark to a global mind." data-zh="从一个夸克，到全球之心。"></span></h2>
+      <p class="lede"><span data-en="A logarithmic map across 41 orders of magnitude. Pick a scale, see what lives there, and see what lives just above and below — because every layer leaks into the next." data-zh="一张跨越 41 个数量级的对数地图。选择一个尺度，查看那里栖居的事物，以及紧邻其上和其下的层级 —— 因为每一层都向相邻层渗透。"></span></p>
+    </div>
+
+    <div class="map-stage">
+      <div class="map-zoom" id="map-zoom"></div>
+      <div class="map-canvas"><svg id="map-svg" viewBox="0 0 1280 520" preserveAspectRatio="xMidYMid meet"></svg></div>
+      <div class="map-detail" id="map-detail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 2 — CAUSALITY -->
+<section id="causality" style="background:linear-gradient(180deg,var(--bg),var(--bg2),var(--bg));">
+  <div class="wrap">
+    <div class="section-head">
+      <h4>Module 02 · <span data-en="Causality Engine" data-zh="因果引擎"></span></h4>
+      <h2><span data-en="Walk a phenomenon backward." data-zh="把一个现象，倒着走一遍。"></span></h2>
+      <p class="lede"><span data-en="Pick a phenomenon — your morning coffee, a stock crash, a war. The engine traces the chain backward across all five layers, surfacing the often-invisible physical, biological, and digital substrates that produced it." data-zh="选择一个现象 —— 你的早晨咖啡、一次股灾、一场战争。引擎将其向后跨越五个层级追溯，浮现出造就它的、常被忽视的物理、生物与数字基底。"></span></p>
+    </div>
+
+    <div class="cause-stage">
+      <div class="cause-input-row">
+        <input type="text" id="cause-input" class="cause-input" placeholder="Enter a phenomenon..." data-en-placeholder="Enter a phenomenon..." data-zh-placeholder="输入一个现象...">
+        <button class="btn btn-pri" id="cause-run"><span data-en="Trace cause" data-zh="追踪因果"></span> →</button>
+      </div>
+      <div class="cause-presets" id="cause-presets"></div>
+      <div class="cause-tree" id="cause-tree"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 3 — HIDDEN STRUCTURES -->
+<section id="hidden">
+  <div class="wrap">
+    <div class="section-head">
+      <h4>Module 03 · <span data-en="Hidden Structure Mode" data-zh="隐藏结构模式"></span></h4>
+      <h2><span data-en="The systems you stop seeing." data-zh="那些你已经看不见的系统。"></span></h2>
+      <p class="lede"><span data-en="Most of reality is invisible: incentive gradients, power asymmetries, information channels. Pick a familiar system and see its hidden architecture — the mechanisms steering the surface behavior." data-zh="现实的大部分是不可见的：激励梯度、权力不对称、信息通道。选择一个熟悉的系统，查看其隐藏架构 —— 那些操控表层行为的机制。"></span></p>
+    </div>
+
+    <div class="hid-stage">
+      <div class="hid-list" id="hid-list"></div>
+      <div class="hid-detail" id="hid-detail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<section class="strip">
+  <div class="wrap">
+    <p class="strip-quote">
+      <span data-en="What you can <span class='accent'>see</span> is the surface.<br>What runs the surface is the <span class='accent'>real</span> map." data-zh="你能<span class='accent'>看到</span>的是表面。<br>驱动表面的，才是<span class='accent'>真正</span>的地图。"></span>
+    </p>
+    <p class="strip-attr" data-en="— Reality Explorer · Postulate III" data-zh="— 现实解析器 · 公设三"></p>
+  </div>
+</section>
+
+<!-- MODULE 4 — SIMULATOR -->
+<section id="simulator">
+  <div class="wrap">
+    <div class="section-head">
+      <h4>Module 04 · <span data-en="Reality Simulator" data-zh="现实模拟器"></span></h4>
+      <h2><span data-en="Move one variable. Watch the world change." data-zh="动一个变量，看世界改变。"></span></h2>
+      <p class="lede"><span data-en="Five sliders, five layers. The simulator computes how a perturbation at one layer ripples upward and downward, producing concrete effects at every other scale." data-zh="五个滑块，五个层级。模拟器计算单层扰动如何向上向下传递，并在每一个其他尺度上产生具体效应。"></span></p>
+    </div>
+
+    <div class="sim-stage">
+      <div class="sim-vars" id="sim-vars"></div>
+      <div class="sim-effects" id="sim-effects"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 5 — KNOWLEDGE GRAPH -->
+<section id="graph" style="background:linear-gradient(180deg,var(--bg),var(--bg2),var(--bg));">
+  <div class="wrap">
+    <div class="section-head">
+      <h4>Module 05 · <span data-en="Knowledge Graph" data-zh="知识图谱"></span></h4>
+      <h2><span data-en="Forty concepts. Hundreds of edges." data-zh="四十个概念，数百条连接。"></span></h2>
+      <p class="lede"><span data-en="A force-laid graph of the most load-bearing ideas across all five layers — and the connections between them. Click any node. Search to filter. Toggle layers to isolate a region of reality." data-zh="一张力学布局的图：跨越五层、最具承重力的概念集合 —— 以及它们之间的连接。点击节点；搜索以过滤；切换层级以隔离现实的某一区域。"></span></p>
+    </div>
+
+    <div class="kg-stage">
+      <div class="kg-controls">
+        <input type="text" id="kg-search" class="kg-search" placeholder="Search nodes..." data-en-placeholder="Search nodes..." data-zh-placeholder="搜索节点...">
+        <button class="kg-filter l1 active" data-l="1">L1</button>
+        <button class="kg-filter l2 active" data-l="2">L2</button>
+        <button class="kg-filter l3 active" data-l="3">L3</button>
+        <button class="kg-filter l4 active" data-l="4">L4</button>
+        <button class="kg-filter l5 active" data-l="5">L5</button>
+      </div>
+      <div class="kg-canvas">
+        <svg id="kg-svg" viewBox="0 0 1280 600" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="kg-info" id="kg-info"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING STRIP -->
+<section class="strip">
+  <div class="wrap">
+    <p class="strip-quote">
+      <span data-en="Once reality becomes <span class='accent'>computable</span>,<br>it becomes <span class='accent'>responsible</span>." data-zh="一旦现实成为<span class='accent'>可计算</span>的，<br>它就成为<span class='accent'>可问责</span>的。"></span>
+    </p>
+    <p class="strip-attr" data-en="— Reality Explorer · Coda" data-zh="— 现实解析器 · 尾声"></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-col">
+      <div class="brand" style="margin-bottom:18px;">
+        <div class="brand-mark"></div>
+        <div class="brand-text" data-en="Reality Explorer" data-zh="现实解析器"></div>
+      </div>
+      <p style="color:var(--dim);font-size:.9rem;max-width:320px;line-height:1.7;" data-en="A computable, layered model of reality. Part of the Psyverse portfolio — instruments for thinking at planetary scale." data-zh="一个可计算的、分层的现实模型。Psyverse 矩阵的一员 —— 面向行星尺度思考的工具。"></p>
+    </div>
+    <div class="foot-col">
+      <h5 data-en="Modules" data-zh="模块"></h5>
+      <a href="#map" data-en="Reality Map" data-zh="现实地图"></a>
+      <a href="#causality" data-en="Causality Engine" data-zh="因果引擎"></a>
+      <a href="#hidden" data-en="Hidden Structures" data-zh="隐藏结构"></a>
+      <a href="#simulator" data-en="Simulator" data-zh="模拟器"></a>
+      <a href="#graph" data-en="Knowledge Graph" data-zh="知识图谱"></a>
+    </div>
+    <div class="foot-col">
+      <h5 data-en="Sister Sites" data-zh="姊妹站点"></h5>
+      <a href="https://mirror.psyverse.fun" data-en="Humanity Mirror" data-zh="人类之镜"></a>
+      <a href="https://omega.psyverse.fun">Ω OMEGA</a>
+      <a href="https://urcde.psyverse.fun">URCDE</a>
+      <a href="https://mindatlas.psyverse.fun" data-en="Atlas of Mind" data-zh="思维之图"></a>
+    </div>
+    <div class="foot-col">
+      <h5 data-en="Network" data-zh="网络"></h5>
+      <a href="https://psyverse.fun">Psyverse</a>
+      <a href="https://github.com/gewenbo888/reality-explorer">GitHub</a>
+      <a href="mailto:gewenbo84@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>© 2026 Psyverse · Reality Explorer</span>
+    <span data-en="Built by Gewenbo · v1.0" data-zh="Gewenbo 制作 · v1.0"></span>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════ DATA ════════════════════════ */
+
+// 9 scales spanning the full reality map
+const SCALES = [
+  { id:'sub',   layer:1, scope:'10⁻¹⁵ m', name:{en:'Subatomic', zh:'亚原子'}, x:80,  y:260,
+    desc:{en:'Quarks, leptons, gluons. The fields whose excitations are everything else.', zh:'夸克、轻子、胶子。它们的场的激发即为其他一切。'},
+    ex:{en:'quarks · neutrinos · photons · 4 forces', zh:'夸克 · 中微子 · 光子 · 四种力'} },
+  { id:'atom',  layer:1, scope:'10⁻¹⁰ m', name:{en:'Atomic', zh:'原子'}, x:200, y:230,
+    desc:{en:'Atoms, molecules, chemistry. Where matter starts to keep records of structure.', zh:'原子、分子、化学。物质开始记住结构的地方。'},
+    ex:{en:'H₂O · CO₂ · Si · 118 elements', zh:'H₂O · CO₂ · Si · 118 种元素'} },
+  { id:'cell',  layer:2, scope:'10⁻⁵ m', name:{en:'Cellular', zh:'细胞'}, x:330, y:200,
+    desc:{en:'Cells. Self-replicating chemistry. Memory in DNA. Energy in mitochondria.', zh:'细胞。可自我复制的化学。记忆在 DNA，能量在线粒体。'},
+    ex:{en:'bacteria · neurons · stem cells · ~3.7 Gyr old', zh:'细菌 · 神经元 · 干细胞 · 约 37 亿年历史'} },
+  { id:'org',   layer:2, scope:'1 m',     name:{en:'Organism', zh:'有机体'}, x:460, y:170,
+    desc:{en:'A multicellular animal. 37 trillion cells acting as one. The unit of biology that experiences.', zh:'多细胞动物。37 万亿细胞协同为一。生物层中具有体验的基本单元。'},
+    ex:{en:'humans · whales · trees · fungi networks', zh:'人 · 鲸 · 树 · 真菌网络'} },
+  { id:'mind',  layer:3, scope:'1 brain', name:{en:'Mind', zh:'心智'}, x:590, y:160,
+    desc:{en:'A single conscious mind. Where 86 B neurons produce a model of the world — and a model of itself inside it.', zh:'单一的有意识心智。860 亿神经元产出一个世界模型 —— 以及世界中自我的模型。'},
+    ex:{en:'attention · memory · language · self-awareness', zh:'注意 · 记忆 · 语言 · 自我觉知'} },
+  { id:'group', layer:4, scope:'10² people', name:{en:'Group', zh:'群体'}, x:720, y:170,
+    desc:{en:'Family, tribe, team. The smallest social unit where culture, hierarchy, and trust become operational.', zh:'家庭、部落、团队。文化、等级、信任开始运作的最小社会单元。'},
+    ex:{en:'family · startup · tribe · band of friends', zh:'家庭 · 创业团队 · 部落 · 朋友圈子'} },
+  { id:'soc',   layer:4, scope:'10⁹ people', name:{en:'Society', zh:'社会'}, x:850, y:200,
+    desc:{en:'Nations and markets. Coordinating millions of strangers via shared institutions: language, money, law.', zh:'民族与市场。通过共享制度（语言、货币、法律）协调数百万陌生人。'},
+    ex:{en:'states · cities · markets · religions', zh:'国家 · 城市 · 市场 · 宗教'} },
+  { id:'plat',  layer:5, scope:'10⁹ users', name:{en:'Platform', zh:'平台'}, x:980, y:230,
+    desc:{en:'Digital coordination layers running atop society. Apps, social media, marketplaces — software shaping behavior.', zh:'运行于社会之上的数字协调层。应用、社交媒体、交易市场 —— 塑造行为的软件。'},
+    ex:{en:'YouTube · WeChat · Visa · Wikipedia', zh:'YouTube · 微信 · Visa · 维基百科'} },
+  { id:'glob',  layer:5, scope:'10²⁵ flops', name:{en:'Global compute', zh:'全球算力'}, x:1110, y:260,
+    desc:{en:'The species\' shared cognitive substrate. Every datacenter, every cable, every model. A planetary nervous system.', zh:'物种的共享认知衬底。每一个数据中心、每一根光缆、每一个模型。一个行星神经系统。'},
+    ex:{en:'GPT · datacenters · undersea cables · LEO sats', zh:'GPT · 数据中心 · 海底光缆 · 低轨卫星'} },
+];
+
+const CAUSE_PRESETS = [
+  {en:'Your morning coffee', zh:'你的早晨咖啡',
+   chain:[
+     {l:5, en:'A coffee app shows you a personalized push at 6:47 AM', zh:'咖啡应用在早 6:47 推送个性化通知给你'},
+     {l:4, en:'A market chain coordinates beans from 11 countries', zh:'市场链条协调来自 11 个国家的咖啡豆'},
+     {l:3, en:'Caffeine binds adenosine receptors, blocking sleep signal', zh:'咖啡因结合腺苷受体，阻断困倦信号'},
+     {l:2, en:'A bean from Ethiopia carries a unique terpene profile', zh:'一颗埃塞俄比亚豆携带独特的萜烯组合'},
+     {l:1, en:'Geothermal heat dried beans — solar fusion at one remove', zh:'地热与日光烘干豆子 —— 间接源自太阳聚变'},
+   ], summary:{en:'Your alertness this morning is the end-state of a chain that begins in <strong>nuclear fusion 8 minutes away</strong> and runs through climate, biology, supply chains, and a smartphone push.', zh:'你今早的清醒，是一条链条的终态：它<strong>始于 8 光分外的核聚变</strong>，穿越气候、生物、供应链，最终止于一次手机推送。'} },
+
+  {en:'A 2008-style stock crash', zh:'2008 式股灾',
+   chain:[
+     {l:5, en:'Trading algorithms flash-cascade on a few millisecond signals', zh:'交易算法在几毫秒信号上闪崩'},
+     {l:4, en:'Pension funds and corporates run for the same exits', zh:'养老金与企业同时撤出同一通道'},
+     {l:3, en:'Loss aversion (10× pain of equivalent gain) triggers panic selling', zh:'损失厌恶（痛苦是等值收益的 10 倍）触发恐慌抛售'},
+     {l:2, en:'Cortisol spikes; rationality circuits go offline', zh:'皮质醇飙升；理性回路下线'},
+     {l:1, en:'Cascading information flow physically runs through fiber-optic photons', zh:'级联信息流的物理载体是光纤中的光子'},
+   ], summary:{en:'A "financial" event is in fact a <strong>cross-layer cascade</strong> — silicon, neurochemistry, group psychology, institutional incentives, all firing in milliseconds.', zh:'一场"金融"事件实为一场<strong>跨层级级联</strong> —— 硅、神经化学、群体心理、机构激励，在毫秒内同时点燃。'} },
+
+  {en:'A war breaks out', zh:'一场战争爆发',
+   chain:[
+     {l:5, en:'State media coordinates narrative on multiple platforms', zh:'国家媒体在多平台协调叙事'},
+     {l:4, en:'Political coalitions face declining domestic legitimacy', zh:'政治联盟面对国内合法性下降'},
+     {l:3, en:'Threat perception narrows attention, suppresses doubt', zh:'威胁感知收窄注意力、压抑怀疑'},
+     {l:2, en:'Stress hormones cascade across millions of bodies', zh:'压力激素在数百万躯体内级联'},
+     {l:1, en:'Resource scarcity (energy, water, food, minerals) sharpens', zh:'资源稀缺（能源、水、食物、矿产）加剧'},
+   ], summary:{en:'War is not a discrete event. It is a <strong>chain of resource physics → bodily stress → cognitive narrowing → political coordination → narrative weaponization</strong>. Cut any link and the chain weakens.', zh:'战争不是离散事件。它是<strong>资源物理 → 躯体应激 → 认知窄化 → 政治协调 → 叙事武器化</strong>的链条。切断任何一环，链条都会减弱。'} },
+
+  {en:'Ten million users join a new app', zh:'一千万用户涌入一款新应用',
+   chain:[
+     {l:5, en:'CDN propagates the app at near-light speed across continents', zh:'CDN 几乎以光速在各大洲传播应用'},
+     {l:4, en:'Friend-of-friend social graph triggers exponential adoption', zh:'朋友的朋友的社交图谱触发指数级采用'},
+     {l:3, en:'Reward variability hijacks the dopamine system (intermittent reinforcement)', zh:'奖励不确定性劫持多巴胺系统（间歇性强化）'},
+     {l:2, en:'Sleep loss cascades; cortisol shifts circadian rhythm', zh:'睡眠损失级联；皮质醇打乱昼夜节律'},
+     {l:1, en:'Server farms increase electrical draw, increasing CO₂ output', zh:'服务器集群增加用电量，提高 CO₂ 排放'},
+   ], summary:{en:'A "viral app" is, in physical reality, an <strong>energy event</strong> — kilowatts to megawatts to gigawatts in months, paid for in attention and electricity.', zh:'所谓"病毒级应用"，在物理现实中是一场<strong>能量事件</strong> —— 几个月内从千瓦升至兆瓦再升至吉瓦，由注意力与电力买单。'} },
+
+  {en:'You make a decision', zh:'你做出一个决定',
+   chain:[
+     {l:5, en:'Notifications, news, ads — the day\'s information environment', zh:'通知、新闻、广告 —— 一天的信息环境'},
+     {l:4, en:'Family, peer group, and cultural norms set acceptable choices', zh:'家庭、同伴群体、文化规范限定可接受的选项'},
+     {l:3, en:'Mood, recent memories, and current attention narrow the menu', zh:'心情、近期记忆、当下注意力，进一步收窄菜单'},
+     {l:2, en:'Glucose, sleep debt, and hormonal cycle weight outcomes', zh:'血糖、睡眠债、激素周期，对结果加权'},
+     {l:1, en:'Microsecond-scale neuronal voltage thresholds finalize the choice', zh:'微秒级的神经元电压阈值，最终确定选择'},
+   ], summary:{en:'"Free will" is the experience of a <strong>multi-layer aggregator</strong> producing one output. The freedom is real; so are the constraints.', zh:'"自由意志"是<strong>多层聚合器</strong>产出单一输出时的主观体验。自由是真实的；约束也是。'} },
+
+  {en:'A pandemic spreads globally', zh:'瘟疫全球扩散',
+   chain:[
+     {l:5, en:'Real-time flight & travel data accelerates pathogen geography', zh:'实时航班与出行数据，加速病原体的地理扩散'},
+     {l:4, en:'Trust gaps in institutions widen; compliance fragments', zh:'对制度的信任出现裂口；遵从度分裂'},
+     {l:3, en:'Risk perception tracks vivid stories more than statistics', zh:'风险感知追随生动故事，而非统计数据'},
+     {l:2, en:'Viral RNA exploits an evolutionary bottleneck (cell receptor)', zh:'病毒 RNA 利用细胞受体这一演化瓶颈'},
+     {l:1, en:'Aerosol physics in poorly-ventilated rooms drives transmission', zh:'通风不良空间内的气溶胶物理，驱动传播'},
+   ], summary:{en:'A pandemic happens in <strong>five places at once</strong>: physics of droplets, biology of receptors, psychology of risk, politics of trust, networks of travel.', zh:'瘟疫同时发生在<strong>五个地方</strong>：飞沫物理、受体生物学、风险心理、信任政治、出行网络。'} },
+];
+
+const HIDDEN_SYSTEMS = [
+  { id:'social', name:{en:'A social media feed', zh:'一条社交媒体信息流'}, visible:{en:'You scroll for fun', zh:'你为娱乐而刷'},
+    incentives:{en:'Platform earns by selling your attention to advertisers. Maximize seconds-per-session.', zh:'平台通过把你的注意力卖给广告商赚钱。追求"每场使用时长"最大化。',
+      list:{en:['Engagement > truth','Outrage outperforms calm','Variable rewards trump predictable ones'], zh:['互动 > 真实','愤怒胜过平静','可变奖励胜过可预测奖励']}},
+    power:{en:'A handful of recommender models, controlled by ~5 companies, decide what 5 B humans see today.', zh:'少数几个推荐模型，由约 5 家公司控制，决定今天 50 亿人能看到什么。',
+      list:{en:['Algorithmic ordering = editorial power','Account suspension = political power','API access = research access'], zh:['算法排序 = 编辑权力','账号封禁 = 政治权力','API 准入 = 研究准入']}},
+    info:{en:'Information flows in one direction (platform → you), with attention metered back. Asymmetric.', zh:'信息单向流动（平台 → 你），注意力反向计量。结构不对称。',
+      list:{en:['Side-channel: every gesture logged','Filter bubble: invisible to you','No global view, only local feed'], zh:['侧通道：每一次手势都被记录','过滤气泡：你看不见它','无全局视图，只有局部信息流']}},
+    punch:{en:'A "free" feed is the cheapest way to rent your decision-making for an hour.', zh:'"免费"的信息流，是出租你一小时决策能力最便宜的方式。'} },
+
+  { id:'work', name:{en:'A modern office job', zh:'一份现代办公室工作'}, visible:{en:'You exchange skill for salary', zh:'你以技能换工资'},
+    incentives:{en:'Employer maximizes output per labor-hour; employee maximizes career capital and stability per stress-hour.', zh:'雇主追求每劳动小时的产出最大化；员工追求每压力小时获得的职业资本与稳定性最大化。',
+      list:{en:['Visible busyness > actual productivity','Manager-pleasing > customer value','Avoiding blame > seeking growth'], zh:['可见的"忙碌" > 真实生产力','取悦上司 > 客户价值','规避指责 > 追求成长']}},
+    power:{en:'Hierarchy distributes risk downward (you can be fired) and option-value upward (the boss owns equity).', zh:'层级把风险向下分配（你可能被解雇），把期权价值向上分配（老板持股）。',
+      list:{en:['Asymmetric exit cost','Information silos by design','Performance review = annual coercion ritual'], zh:['退出成本不对称','信息孤岛是被设计出来的','绩效评估 = 年度强制仪式']}},
+    info:{en:'Information about the company\'s real state flows up through filters; information from the top flows down through PR.', zh:'公司真实状态的信息向上经过过滤层；高层信息向下经过 PR 包装。',
+      list:{en:['Bad news travels slowly','Rumors travel faster than memos','Salary information is taboo'], zh:['坏消息传得慢','流言传得比备忘录快','薪资信息是禁忌']}},
+    punch:{en:'You signed a contract; you also inherited a thousand unwritten ones.', zh:'你签了一份合同；你也继承了一千份未写下的合同。'} },
+
+  { id:'app', name:{en:'A "free" app', zh:'一款"免费"应用'}, visible:{en:'You download it, no charge', zh:'你免费下载并使用'},
+    incentives:{en:'Vendor monetizes via data, attention, or premium upsell. The interface is engineered to maximize whichever is dominant.', zh:'供应商通过数据、注意力或高级版升级变现。界面被工程化以最大化主导路径。',
+      list:{en:['Onboarding extracts data','Notifications drive return visits','Friction designed asymmetrically (easy in, hard out)'], zh:['注册流程提取数据','通知驱动重复访问','摩擦不对称设计（进入容易，离开困难）']}},
+    power:{en:'The vendor controls deletion, account access, ToS, and the algorithmic surface. They can change the deal at any time.', zh:'供应商控制删除、账户访问、服务条款、算法表面。他们随时可以改变规则。',
+      list:{en:['ToS revisions auto-accepted','Account suspension is one-sided','Data export often deliberately bad'], zh:['服务条款修订自动接受','账户封禁是单方面的','数据导出常被刻意做得难用']}},
+    info:{en:'Vendor sees your behavior in fine detail; you see only what they choose to surface back.', zh:'供应商以极细颗粒度看到你的行为；你只看到他们选择反馈给你的内容。',
+      list:{en:['No real visibility into ranking','No audit trail for changes','No standing to challenge decisions'], zh:['对排名无真正可见性','变更无审计轨迹','对决策无申诉地位']}},
+    punch:{en:'Free is the price you pay for not being the customer.', zh:'"免费"是你"不是客户"所付出的代价。'} },
+
+  { id:'city', name:{en:'A city', zh:'一座城市'}, visible:{en:'Streets, buildings, traffic', zh:'街道、建筑、车流'},
+    incentives:{en:'Land value drives nearly every visible structure. Public space competes against rent-extracting private use.', zh:'土地价值驱动几乎每一项可见结构。公共空间与抽租型私人用途相互竞争。',
+      list:{en:['Highest-rent use wins','Tax base shapes service quality','Voter geography shapes infrastructure'], zh:['最高租金的用途获胜','税基决定服务质量','选民地理决定基础设施']}},
+    power:{en:'Zoning, permits, eminent domain, police, public schools — formal levers. Plus reputation, credit, social networks — informal levers.', zh:'规划、许可、征用、警察、公立学校 —— 正式杠杆。加上声誉、信用、社会关系 —— 非正式杠杆。',
+      list:{en:['Property owners > renters in voting','Capital can move; labor mostly cannot','Local media shapes who runs'], zh:['有产者 > 租户（投票上）','资本可流动；劳动力多半不能','本地媒体决定谁能参选']}},
+    info:{en:'Layered: planning maps (technical), media (narrative), gossip (warning), real-estate listings (price signal).', zh:'分层：规划图（技术）、媒体（叙事）、闲话（预警）、房产挂牌（价格信号）。',
+      list:{en:['Crime statistics: lagging','Real estate signals: leading','Word of mouth: fastest, noisiest'], zh:['犯罪统计：滞后','房产信号：领先','口耳相传：最快也最嘈杂']}},
+    punch:{en:'A city looks like buildings; it is mostly contracts and commutes.', zh:'城市看起来是建筑；它实际上多是合同与通勤。'} },
+
+  { id:'science', name:{en:'A scientific paper', zh:'一篇科学论文'}, visible:{en:'A finding, with figures and citations', zh:'一项发现，附图与引用'},
+    incentives:{en:'Authors compete for citations and grants. Journals compete for impact factor. Reviewers gatekeep, often anonymously.', zh:'作者竞逐引用与基金。期刊竞逐影响因子。审稿人把关，常常匿名。',
+      list:{en:['Novel > replicable','Positive > null','Famous lab > unknown lab (same data)'], zh:['新奇 > 可复现','阳性 > 阴性','名实验室 > 无名实验室（相同数据下）']}},
+    power:{en:'A few publishers control prestige, access, and indexing. PI labs control authorship and credit.', zh:'少数出版商控制声誉、获取与索引。PI 实验室控制署名与功劳。',
+      list:{en:['Open access often pay-to-play','Citation politics is real','Retraction is brutally rare'], zh:['开放获取常是付费上架','引用政治真实存在','撤稿罕见到残酷']}},
+    info:{en:'Public data: paper. Hidden data: protocols, lab notebooks, failed runs, post-publication corrections.', zh:'公开数据：论文。隐藏数据：实验协议、实验室笔记、失败的运行、发表后修正。',
+      list:{en:['File-drawer effect dominates','Methods sections often incomplete','Errata cycles slowly'], zh:['抽屉效应占主导','方法章节常不完整','勘误周期缓慢']}},
+    punch:{en:'A paper is the marketing brochure of a finding, not the finding itself.', zh:'论文是发现的营销手册，而不是发现本身。'} },
+
+  { id:'election', name:{en:'A democratic election', zh:'一场民主选举'}, visible:{en:'Voters cast ballots; results announced', zh:'选民投票；结果公布'},
+    incentives:{en:'Candidates maximize coalition size minus defection cost. Donors fund based on policy & access. Voters trade-off identity vs interest.', zh:'候选人最大化联盟规模减叛离成本。捐赠者基于政策与渠道资助。选民在身份与利益之间权衡。',
+      list:{en:['Turnout > persuasion','Geography > popular vote (in many systems)','Negative ads outperform positive'], zh:['投票率 > 说服','地理 > 普选票（许多制度下）','负面广告胜过正面']}},
+    power:{en:'Districting, voter rolls, ballot rules, ID requirements, media access — each is a lever changing outcomes by ~3-10 pts.', zh:'选区划分、选民名册、选票规则、身份证要求、媒体准入 —— 每一项都是杠杆，可让结果偏移约 3–10 个百分点。',
+      list:{en:['Gerrymandering: silent megaphone','Felony disenfranchisement: invisible','Polling place placement: hidden friction'], zh:['选区操纵：无声的扩音器','重罪剥夺投票权：不可见','投票点选址：隐藏摩擦']}},
+    info:{en:'Voters get filtered streams; candidates get focus-grouped messages back. Information loops asymmetrically.', zh:'选民收到过滤后的信息流；候选人收到焦点小组测试过的消息回路。信息循环不对称。',
+      list:{en:['Misinformation faster than correction','Endorsements are coordinated','Polls steer behavior they measure'], zh:['错误信息比纠正传得更快','背书是被协调的','民调左右它们所测量的行为']}},
+    punch:{en:'You vote on a ballot; the system votes on the rules of the ballot.', zh:'你为选票投票；系统为选票的规则投票。'} },
+];
+
+const KG = {
+  nodes: [
+    {id:'photon', l:1, name:{en:'Photon', zh:'光子'}, x:80, y:60, desc:{en:'A quantum of the electromagnetic field. Carrier of vision, heat, communication.', zh:'电磁场的量子。视觉、热、通信的载体。'}},
+    {id:'atom', l:1, name:{en:'Atom', zh:'原子'}, x:170, y:130, desc:{en:'Bound proton/neutron/electron system. Building block of all chemistry.', zh:'质子/中子/电子的束缚系统。所有化学的构建砌块。'}},
+    {id:'energy', l:1, name:{en:'Energy', zh:'能量'}, x:260, y:60, desc:{en:'The universal currency. Conserved across all transformations.', zh:'宇宙的通用货币。在一切转换中守恒。'}},
+    {id:'entropy', l:1, name:{en:'Entropy', zh:'熵'}, x:380, y:120, desc:{en:'Hidden information. The arrow of time. Why hot coffee cools.', zh:'隐藏的信息。时间之箭。咖啡为何会变凉。'}},
+    {id:'gravity', l:1, name:{en:'Gravity', zh:'引力'}, x:480, y:55, desc:{en:'Curvature of spacetime by mass-energy. The slowest force, the largest scale.', zh:'质能引起的时空曲率。最慢的力，最大的尺度。'}},
+    {id:'cell', l:2, name:{en:'Cell', zh:'细胞'}, x:140, y:240, desc:{en:'A self-maintaining membrane around chemistry. The minimum unit of life.', zh:'围绕化学的自维持膜。生命的最小单元。'}},
+    {id:'dna', l:2, name:{en:'DNA', zh:'DNA'}, x:260, y:230, desc:{en:'A 4-letter molecular code carrying inherited memory across generations.', zh:'四字母分子编码，携带跨代遗传记忆。'}},
+    {id:'evolution', l:2, name:{en:'Evolution', zh:'演化'}, x:380, y:250, desc:{en:'Differential reproduction filtering heritable variation. The mind-shaping algorithm.', zh:'差异化繁殖对可遗传变异的过滤。塑造心智的算法。'}},
+    {id:'metabolism', l:2, name:{en:'Metabolism', zh:'代谢'}, x:50, y:330, desc:{en:'How life converts energy into structure and motion. Closed-loop biochemistry.', zh:'生命将能量转换为结构与运动的方式。闭环生物化学。'}},
+    {id:'organism', l:2, name:{en:'Organism', zh:'有机体'}, x:480, y:230, desc:{en:'A coherent agent that takes in energy, persists, reproduces.', zh:'一个连贯主体，摄取能量、维持自身、进行繁殖。'}},
+    {id:'brain', l:3, name:{en:'Brain', zh:'大脑'}, x:600, y:300, desc:{en:'86 B neurons; the densest computational object known. Substrate of mind.', zh:'860 亿神经元；已知最密集的计算物体。心智的衬底。'}},
+    {id:'attention', l:3, name:{en:'Attention', zh:'注意力'}, x:710, y:230, desc:{en:'The bottleneck of conscious experience. Most contested resource of modernity.', zh:'意识体验的瓶颈。现代性中争夺最激烈的资源。'}},
+    {id:'memory', l:3, name:{en:'Memory', zh:'记忆'}, x:600, y:180, desc:{en:'Brain\'s persistent record. Episodic, semantic, procedural — three systems, one substrate.', zh:'大脑的持久记录。情景、语义、程序 —— 三套系统，同一衬底。'}},
+    {id:'language', l:3, name:{en:'Language', zh:'语言'}, x:780, y:330, desc:{en:'Recursive grammar. The technology that lets two minds share a thought.', zh:'递归语法。让两个心智共享一个念头的技术。'}},
+    {id:'emotion', l:3, name:{en:'Emotion', zh:'情绪'}, x:520, y:380, desc:{en:'Body-state signals shaping cognition. The fast pre-rational layer.', zh:'塑造认知的躯体状态信号。理性之前、迅速运作的一层。'}},
+    {id:'identity', l:3, name:{en:'Identity', zh:'身份'}, x:680, y:430, desc:{en:'A brain\'s story about itself. Mostly retroactive, mostly necessary.', zh:'大脑讲给自己听的故事。多数是事后建构的，也多数是必要的。'}},
+    {id:'belief', l:3, name:{en:'Belief', zh:'信念'}, x:800, y:430, desc:{en:'A model held strongly enough to act on. Often inherited, rarely audited.', zh:'强到足以据之行动的模型。常被继承，少被审计。'}},
+    {id:'culture', l:4, name:{en:'Culture', zh:'文化'}, x:910, y:380, desc:{en:'Memory stored outside any one brain. Books, rituals, codes of law.', zh:'存储于任何单一大脑之外的记忆。书籍、仪式、法典。'}},
+    {id:'family', l:4, name:{en:'Family', zh:'家庭'}, x:880, y:280, desc:{en:'The smallest social unit. Where the next mind is bootstrapped.', zh:'最小社会单元。下一代心智在此启动。'}},
+    {id:'tribe', l:4, name:{en:'Tribe', zh:'部落'}, x:990, y:230, desc:{en:'~150 humans. Dunbar number. Where trust is dense and conflict cheap.', zh:'约 150 人。邓巴数。信任高密、冲突低成本之处。'}},
+    {id:'institution', l:4, name:{en:'Institution', zh:'制度'}, x:1080, y:300, desc:{en:'Persistent rules outliving their authors. The skeleton of civilization.', zh:'比制定者活得更久的持久规则。文明的骨架。'}},
+    {id:'market', l:4, name:{en:'Market', zh:'市场'}, x:1010, y:380, desc:{en:'A coordination mechanism using prices to aggregate dispersed knowledge.', zh:'以价格聚合分散知识的协调机制。'}},
+    {id:'state', l:4, name:{en:'State', zh:'国家'}, x:1140, y:230, desc:{en:'A monopoly on legitimate violence over a defined territory.', zh:'对一片确定领土上合法暴力的垄断。'}},
+    {id:'religion', l:4, name:{en:'Religion', zh:'宗教'}, x:920, y:480, desc:{en:'A long-horizon coordination technology binding identity, ethics, and ritual.', zh:'一种长尺度的协调技术，绑定身份、伦理、仪式。'}},
+    {id:'money', l:4, name:{en:'Money', zh:'货币'}, x:1130, y:430, desc:{en:'A protocol for pricing trust between strangers across time.', zh:'一种跨时空、跨陌生人定价信任的协议。'}},
+    {id:'law', l:4, name:{en:'Law', zh:'法律'}, x:1190, y:330, desc:{en:'Codified culture, enforceable. The official memory of "what we agreed".', zh:'被编码的文化，可强制执行。"我们曾同意之事"的官方记忆。'}},
+    {id:'internet', l:5, name:{en:'Internet', zh:'互联网'}, x:480, y:520, desc:{en:'A planetary nervous system. ~5 B endpoints. Protocol-based not centrally owned.', zh:'一个行星神经系统。约 50 亿终端。以协议为基础，不归中央所有。'}},
+    {id:'platform', l:5, name:{en:'Platform', zh:'平台'}, x:380, y:480, desc:{en:'A market hosted by software. The dominant economic shape of the digital era.', zh:'由软件托管的市场。数字时代的主导经济形态。'}},
+    {id:'algorithm', l:5, name:{en:'Algorithm', zh:'算法'}, x:600, y:550, desc:{en:'A finite recipe. The thing actually deciding when "the platform" decides.', zh:'有限的配方。"平台"做决定时，真正在做决定的东西。'}},
+    {id:'ai', l:5, name:{en:'AI', zh:'AI'}, x:740, y:560, desc:{en:'Cognition not made of cells. The first peer-grade non-biological mind.', zh:'不由细胞构成的认知。第一种与人类智力相当的非生物心智。'}},
+    {id:'data', l:5, name:{en:'Data', zh:'数据'}, x:280, y:540, desc:{en:'Records of what happened. The fossil layer of digital civilization.', zh:'对已发生之事的记录。数字文明的化石层。'}},
+    {id:'protocol', l:5, name:{en:'Protocol', zh:'协议'}, x:200, y:480, desc:{en:'An agreement so universal it disappears into infrastructure (TCP, HTTP, SMTP).', zh:'普及到消融于基础设施的协议（TCP、HTTP、SMTP）。'}},
+    {id:'compute', l:5, name:{en:'Compute', zh:'算力'}, x:870, y:550, desc:{en:'Operations per second. The metabolism of the digital layer.', zh:'每秒运算次数。数字层的代谢率。'}},
+    {id:'network', l:5, name:{en:'Network', zh:'网络'}, x:130, y:430, desc:{en:'A graph of edges. Topology determines power, speed, and resilience.', zh:'一张边的图。拓扑决定力量、速度与韧性。'}},
+  ],
+  edges: [
+    ['photon','energy'],['energy','entropy'],['atom','energy'],['atom','cell'],['atom','metabolism'],
+    ['gravity','organism'],['gravity','atom'],['cell','dna'],['dna','evolution'],['cell','metabolism'],
+    ['cell','organism'],['organism','brain'],['organism','metabolism'],['evolution','brain'],['evolution','organism'],
+    ['brain','attention'],['brain','memory'],['brain','language'],['brain','emotion'],['attention','memory'],
+    ['memory','identity'],['memory','language'],['language','culture'],['language','identity'],['emotion','identity'],
+    ['identity','belief'],['belief','culture'],['identity','family'],['family','tribe'],['family','culture'],
+    ['tribe','institution'],['culture','institution'],['institution','state'],['institution','market'],['institution','law'],
+    ['market','money'],['state','law'],['religion','culture'],['religion','identity'],['religion','tribe'],
+    ['money','market'],['institution','culture'],['internet','platform'],['internet','protocol'],['platform','algorithm'],
+    ['platform','ai'],['algorithm','ai'],['ai','data'],['data','platform'],['internet','data'],
+    ['compute','ai'],['compute','algorithm'],['network','internet'],['network','platform'],['network','protocol'],
+    ['platform','market'],['platform','attention'],['ai','language'],['data','memory'],['internet','culture'],
+  ],
+};
+
+const SIM_VARS = [
+  { id:'temp', l:1, name:{en:'Global temperature (°C above 1850)', zh:'全球升温 (相对 1850°C)'},
+    min:0, max:6, init:1.4, step:.1, hint:{en:'Currently ~1.4°C', zh:'当前约 1.4°C'},
+    effects:(v)=>[
+      {l:1, en:`Sea level rise: <strong>+${(v*30).toFixed(0)} cm</strong> by 2100`, zh:`海平面上升：到 2100 年 <strong>+${(v*30).toFixed(0)} cm</strong>`, delta:v>2?'dn':'up'},
+      {l:2, en:`Crop yield change: <strong>${(-v*8).toFixed(0)}%</strong> in tropics`, zh:`作物产量变化：热带 <strong>${(-v*8).toFixed(0)}%</strong>`, delta:'dn'},
+      {l:3, en:`Climate anxiety prevalence: <strong>${(v*15+10).toFixed(0)}%</strong>`, zh:`气候焦虑流行率：<strong>${(v*15+10).toFixed(0)}%</strong>`, delta:'dn'},
+      {l:4, en:`Climate refugees: <strong>${(v*200).toFixed(0)} M</strong> displaced`, zh:`气候难民：<strong>${(v*200).toFixed(0)} 百万</strong>流离失所`, delta:'dn'},
+      {l:5, en:`Datacenter cooling cost: <strong>+${(v*18).toFixed(0)}%</strong>`, zh:`数据中心冷却成本：<strong>+${(v*18).toFixed(0)}%</strong>`, delta:'dn'},
+    ]},
+  { id:'compute', l:5, name:{en:'Global compute (×10²⁰ flops)', zh:'全球算力 (×10²⁰ flops)'},
+    min:1, max:100, init:10, step:1, hint:{en:'Currently ~10×', zh:'当前约 10×'},
+    effects:(v)=>[
+      {l:5, en:`AI capability tier: <strong>${v<5?'narrow':v<20?'broad':v<50?'AGI-class':'super-human'}</strong>`, zh:`AI 能力级别：<strong>${v<5?'狭义':v<20?'广义':v<50?'AGI 级':'超人级'}</strong>`, delta:'up'},
+      {l:4, en:`Knowledge worker labor displaced: <strong>${(v*1.5).toFixed(0)}%</strong>`, zh:`被替代的知识工作劳动力：<strong>${(v*1.5).toFixed(0)}%</strong>`, delta:'dn'},
+      {l:3, en:`Average attention span: <strong>${(12-v*.06).toFixed(1)} sec</strong>`, zh:`平均注意力跨度：<strong>${(12-v*.06).toFixed(1)} 秒</strong>`, delta:v>20?'dn':'up'},
+      {l:2, en:`Bio-research speed: <strong>×${(1+v*.05).toFixed(1)}</strong>`, zh:`生物研究速度：<strong>×${(1+v*.05).toFixed(1)}</strong>`, delta:'up'},
+      {l:1, en:`Electricity demand: <strong>+${(v*.4).toFixed(0)}%</strong>`, zh:`电力需求：<strong>+${(v*.4).toFixed(0)}%</strong>`, delta:'dn'},
+    ]},
+  { id:'gini', l:4, name:{en:'Global inequality (Gini)', zh:'全球不平等 (基尼)'},
+    min:.3, max:.9, init:.62, step:.01, hint:{en:'Currently ~0.62', zh:'当前约 0.62'},
+    effects:(v)=>[
+      {l:4, en:`Political instability index: <strong>${((v-.3)*200).toFixed(0)}/100</strong>`, zh:`政治不稳定指数：<strong>${((v-.3)*200).toFixed(0)}/100</strong>`, delta:'dn'},
+      {l:3, en:`Trust in institutions: <strong>${(60-((v-.3)*100)).toFixed(0)}%</strong>`, zh:`对制度的信任：<strong>${(60-((v-.3)*100)).toFixed(0)}%</strong>`, delta:'dn'},
+      {l:5, en:`Platform polarization (×): <strong>×${(1+(v-.3)*4).toFixed(1)}</strong>`, zh:`平台极化倍数：<strong>×${(1+(v-.3)*4).toFixed(1)}</strong>`, delta:'dn'},
+      {l:2, en:`Health-span gap (yr): <strong>${((v-.3)*40).toFixed(0)}</strong>`, zh:`健康寿命差距 (年)：<strong>${((v-.3)*40).toFixed(0)}</strong>`, delta:'dn'},
+      {l:1, en:`Carbon footprint inequality: <strong>${(1+(v-.3)*30).toFixed(0)}× ratio</strong>`, zh:`碳足迹不平等：<strong>${(1+(v-.3)*30).toFixed(0)}× 比率</strong>`, delta:'dn'},
+    ]},
+  { id:'fertility', l:2, name:{en:'Total fertility rate', zh:'总和生育率'},
+    min:.5, max:4, init:2.3, step:.1, hint:{en:'Replacement ≈ 2.1', zh:'替代水平 ≈ 2.1'},
+    effects:(v)=>[
+      {l:2, en:`Population in 2100: <strong>${(v*5).toFixed(1)} B</strong>`, zh:`2100 年人口：<strong>${(v*5).toFixed(1)} B</strong>`, delta:v<1.5?'dn':'up'},
+      {l:4, en:`Median age in 2080: <strong>${(60-v*8).toFixed(0)} yr</strong>`, zh:`2080 年中位年龄：<strong>${(60-v*8).toFixed(0)} 岁</strong>`, delta:v<1.5?'dn':'up'},
+      {l:3, en:`Innovation rate: <strong>${(v<1.5?'declining':v>3?'pressured':'stable')}</strong>`, zh:`创新速率：<strong>${(v<1.5?'下降':v>3?'承压':'稳定')}</strong>`, delta:v<1.5?'dn':'up'},
+      {l:5, en:`AI labor demand: <strong>${(v<1.8?'critical':'moderate')}</strong>`, zh:`AI 劳动力需求：<strong>${(v<1.8?'关键':'适中')}</strong>`, delta:v<1.8?'dn':'up'},
+      {l:1, en:`Per-capita energy: <strong>${(v<2?'+30%':v>3?'-25%':'flat')}</strong>`, zh:`人均能耗：<strong>${(v<2?'+30%':v>3?'-25%':'持平')}</strong>`, delta:v<2?'up':'dn'},
+    ]},
+  { id:'attention', l:3, name:{en:'Average attention span (sec)', zh:'平均注意力跨度 (秒)'},
+    min:2, max:30, init:8, step:1, hint:{en:'Currently ~8 sec', zh:'当前约 8 秒'},
+    effects:(v)=>[
+      {l:3, en:`Long-form reading rate: <strong>${(v*5).toFixed(0)}%</strong> of population`, zh:`长文阅读率：<strong>${(v*5).toFixed(0)}%</strong> 人口`, delta:v>10?'up':'dn'},
+      {l:5, en:`Short-form video share: <strong>${(80-v*2).toFixed(0)}%</strong>`, zh:`短视频份额：<strong>${(80-v*2).toFixed(0)}%</strong>`, delta:v>10?'up':'dn'},
+      {l:4, en:`Voter informedness: <strong>${(v>10?'high':v>5?'medium':'low')}</strong>`, zh:`选民知情度：<strong>${(v>10?'高':v>5?'中':'低')}</strong>`, delta:v>10?'up':'dn'},
+      {l:2, en:`Sleep quality index: <strong>${(40+v*1.5).toFixed(0)}</strong>`, zh:`睡眠质量指数：<strong>${(40+v*1.5).toFixed(0)}</strong>`, delta:v>10?'up':'dn'},
+      {l:1, en:`Engagement-driven energy use: <strong>${(v<6?'soaring':'stable')}</strong>`, zh:`互动驱动的能耗：<strong>${(v<6?'飙升':'稳定')}</strong>`, delta:v<6?'dn':'up'},
+    ]},
+];
+
+/* ════════════════════════ I18N ════════════════════════ */
+function isZh(){ return document.body.classList.contains('zh'); }
+function applyLang(lang){
+  document.body.classList.toggle('zh', lang==='zh');
+  localStorage.setItem('re-lang', lang);
+  document.documentElement.lang = lang==='zh' ? 'zh-CN' : 'en';
+  document.getElementById('lang-btn').textContent = lang==='zh' ? 'EN' : '中文';
+  document.querySelectorAll('input[data-en-placeholder]').forEach(el=>{
+    el.placeholder = lang==='zh' ? el.dataset.zhPlaceholder : el.dataset.enPlaceholder;
+  });
+  renderMap(curScale); renderCausePresets(); renderHidList(); renderHid(curHid); renderSim(); renderKG();
+}
+document.getElementById('lang-btn').onclick=()=>applyLang(document.body.classList.contains('zh')?'en':'zh');
+applyLang(localStorage.getItem('re-lang') || 'en');
+
+/* ════════════════════════ MODULE 1 — REALITY MAP ════════════════════════ */
+let curScale = 4; // start at "mind"
+function renderMap(idx){
+  curScale = idx;
+  const lang = isZh()?'zh':'en';
+  // Zoom buttons
+  const zoom = document.getElementById('map-zoom');
+  zoom.innerHTML = SCALES.map((s,i)=>`<button class="${i===idx?'active':''}" data-i="${i}">${s.name[lang]} <span style="opacity:.5">· ${s.scope}</span></button>`).join('');
+  zoom.querySelectorAll('button').forEach(b=>b.onclick=()=>renderMap(+b.dataset.i));
+  // SVG
+  const svg = document.getElementById('map-svg');
+  let html = '';
+  // Connector path
+  html += `<polyline points="${SCALES.map(s=>`${s.x},${s.y}`).join(' ')}" fill="none" stroke="rgba(167,139,250,.3)" stroke-width="1" stroke-dasharray="3 4"/>`;
+  // Layer bands
+  const bands = [{l:1,y:60},{l:2,y:200},{l:3,y:160},{l:4,y:200},{l:5,y:260}];
+  // Nodes
+  SCALES.forEach((s,i)=>{
+    const colorVar = `var(--L${s.layer})`;
+    const isActive = i===idx;
+    const r = isActive ? 26 : 14;
+    html += `<g class="map-node" data-i="${i}" style="cursor:pointer;">`;
+    html += `<circle cx="${s.x}" cy="${s.y}" r="${r+18}" fill="none" stroke="${colorVar}" stroke-width="${isActive?1.5:0}" opacity="${isActive?.5:0}"/>`;
+    html += `<circle cx="${s.x}" cy="${s.y}" r="${r}" fill="${isActive?colorVar:'rgba(16,20,42,.95)'}" stroke="${colorVar}" stroke-width="${isActive?2.5:1.6}"/>`;
+    html += `<text x="${s.x}" y="${s.y+r+24}" text-anchor="middle" fill="${isActive?colorVar:'#8d92b3'}" font-family="JetBrains Mono" font-size="11" font-weight="${isActive?600:400}">${s.name[lang]}</text>`;
+    html += `<text x="${s.x}" y="${s.y+r+40}" text-anchor="middle" fill="#4d5170" font-family="JetBrains Mono" font-size="10">${s.scope}</text>`;
+    html += `</g>`;
+  });
+  svg.innerHTML = html;
+  svg.querySelectorAll('.map-node').forEach(g=>g.onclick=()=>renderMap(+g.dataset.i));
+  // Detail
+  const prev = SCALES[idx-1], cur = SCALES[idx], next = SCALES[idx+1];
+  const card = (s, label) => s ? `
+    <div class="scale-card" style="border-left-color:var(--L${s.layer});">
+      <div class="num">${label}</div>
+      <div class="what" style="color:var(--L${s.layer});">${s.name[lang]} · ${s.scope}</div>
+      <div class="desc">${s.desc[lang]}</div>
+      <div class="ex">${s.ex[lang]}</div>
+    </div>
+  ` : `<div class="scale-card" style="border-left-color:transparent;opacity:.4;"><div class="num">${label}</div><div class="what">—</div></div>`;
+  document.getElementById('map-detail').innerHTML = card(prev, lang==='zh'?'尺度之下':'ZOOM IN ↓') + card(cur, lang==='zh'?'当前尺度':'CURRENT SCALE') + card(next, lang==='zh'?'尺度之上':'ZOOM OUT ↑');
+}
+renderMap(curScale);
+
+/* ════════════════════════ MODULE 2 — CAUSALITY ════════════════════════ */
+function renderCausePresets(){
+  const lang = isZh()?'zh':'en';
+  document.getElementById('cause-presets').innerHTML = CAUSE_PRESETS.map((p,i)=>
+    `<button class="cause-chip" data-i="${i}">${p[lang]}</button>`).join('');
+  document.querySelectorAll('.cause-chip').forEach(b=>b.onclick=()=>{
+    document.getElementById('cause-input').value = CAUSE_PRESETS[+b.dataset.i][lang];
+    runCause(+b.dataset.i);
+  });
+}
+function runCause(presetIdx){
+  const lang = isZh()?'zh':'en';
+  const q = document.getElementById('cause-input').value.trim();
+  let preset;
+  if (typeof presetIdx === 'number') preset = CAUSE_PRESETS[presetIdx];
+  else preset = CAUSE_PRESETS.find(p=>p.en.toLowerCase()===q.toLowerCase() || p.zh===q);
+  if (!preset) preset = generateCauseChain(q, lang);
+  const tree = document.getElementById('cause-tree');
+  const layerNames = {1:'L1·PHYSICAL', 2:'L2·BIOLOGICAL', 3:'L3·COGNITIVE', 4:'L4·SOCIAL', 5:'L5·DIGITAL'};
+  const layerNamesZh = {1:'L1·物理', 2:'L2·生物', 3:'L3·认知', 4:'L4·社会', 5:'L5·数字'};
+  const links = preset.chain.map((c,i)=>`
+    <div class="cause-link l${c.l}">
+      <div class="step">${lang==='zh'?'层 '+c.l:'Step '+(i+1)}</div>
+      <div>
+        <span class="layer-tag">${lang==='zh'?layerNamesZh[c.l]:layerNames[c.l]}</span>
+        <div class="text">${c[lang]}</div>
+      </div>
+    </div>
+  `).join('<div class="cause-arrow">↓</div>');
+  tree.innerHTML = `
+    <div class="cause-phenom">${q || preset[lang]}</div>
+    <div class="cause-chain">${links}</div>
+    <div class="cause-summary">${preset.summary[lang]}</div>
+  `;
+}
+function generateCauseChain(q, lang){
+  // Procedural fallback for arbitrary input
+  return {
+    chain: [
+      {l:5, en:`A digital trace of "${q}" appears in someone's feed`, zh:`关于"${q}"的数字痕迹出现在某人的信息流中`},
+      {l:4, en:`Coordinated social attention forms around it`, zh:`协调的社会注意力围绕它形成`},
+      {l:3, en:`Individual minds form beliefs and emotional reactions`, zh:`个体心智形成信念与情感反应`},
+      {l:2, en:`Bodies release cortisol, dopamine — biological resonance`, zh:`身体分泌皮质醇、多巴胺 —— 生物共振`},
+      {l:1, en:`Energy flows: every signal, every neuron, every server uses joules`, zh:`能量流动：每个信号、每个神经元、每台服务器都消耗焦耳`},
+    ],
+    summary: lang==='zh'
+      ? `任何现象 —— 包括"${q}" —— 在五个层级上同时存在。表面上的它，只是已经穿越了下方四层之后的剩余物。`
+      : `Any phenomenon — including "${q}" — exists at all five layers simultaneously. The surface form is what remains after passing through the four layers beneath.`
+  };
+}
+document.getElementById('cause-run').onclick = ()=>runCause();
+document.getElementById('cause-input').addEventListener('keydown', e=>{ if(e.key==='Enter') runCause(); });
+renderCausePresets();
+document.getElementById('cause-input').value = CAUSE_PRESETS[0].en;
+runCause(0);
+
+/* ════════════════════════ MODULE 3 — HIDDEN STRUCTURES ════════════════════════ */
+let curHid = 'social';
+function renderHidList(){
+  const lang = isZh()?'zh':'en';
+  document.getElementById('hid-list').innerHTML = HIDDEN_SYSTEMS.map(s=>`
+    <div class="hid-item ${s.id===curHid?'active':''}" data-id="${s.id}">
+      <div class="name">${s.name[lang]}</div>
+      <div class="visible">${(lang==='zh'?'表面：':'SURFACE: ')}${s.visible[lang]}</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.hid-item').forEach(el=>el.onclick=()=>{
+    curHid = el.dataset.id; renderHidList(); renderHid(curHid);
+  });
+}
+function renderHid(id){
+  const lang = isZh()?'zh':'en';
+  const s = HIDDEN_SYSTEMS.find(x=>x.id===id);
+  document.getElementById('hid-detail').innerHTML = `
+    <div class="surface">${lang==='zh'?'表面':'SURFACE'} · ${s.visible[lang]}</div>
+    <div class="name">${s.name[lang]}</div>
+    <div class="hid-row">
+      <div class="hid-card incentives">
+        <div class="k">${lang==='zh'?'激励梯度':'INCENTIVES'}</div>
+        <h5>${lang==='zh'?'谁靠什么获利':'Who benefits from what'}</h5>
+        <p>${s.incentives[lang]}</p>
+        <ul>${(lang==='zh'?s.incentives.list.zh:s.incentives.list.en).map(x=>`<li>${x}</li>`).join('')}</ul>
+      </div>
+      <div class="hid-card power">
+        <div class="k">${lang==='zh'?'权力结构':'POWER'}</div>
+        <h5>${lang==='zh'?'谁能改变规则':'Who can change the rules'}</h5>
+        <p>${s.power[lang]}</p>
+        <ul>${(lang==='zh'?s.power.list.zh:s.power.list.en).map(x=>`<li>${x}</li>`).join('')}</ul>
+      </div>
+      <div class="hid-card info">
+        <div class="k">${lang==='zh'?'信息流':'INFORMATION'}</div>
+        <h5>${lang==='zh'?'谁知道什么、何时':'Who knows what, when'}</h5>
+        <p>${s.info[lang]}</p>
+        <ul>${(lang==='zh'?s.info.list.zh:s.info.list.en).map(x=>`<li>${x}</li>`).join('')}</ul>
+      </div>
+    </div>
+    <div class="punch">${s.punch[lang]}</div>
+  `;
+}
+renderHidList(); renderHid(curHid);
+
+/* ════════════════════════ MODULE 4 — SIMULATOR ════════════════════════ */
+const simState = {};
+SIM_VARS.forEach(v=>simState[v.id]=v.init);
+function renderSim(){
+  const lang = isZh()?'zh':'en';
+  document.getElementById('sim-vars').innerHTML = SIM_VARS.map(v=>`
+    <div class="sim-var">
+      <div class="top">
+        <div class="lbl">${v.name[lang]}</div>
+        <div class="val">${simState[v.id]}</div>
+      </div>
+      <input type="range" data-id="${v.id}" min="${v.min}" max="${v.max}" step="${v.step}" value="${simState[v.id]}">
+      <div class="hint">${v.hint[lang]}</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.sim-var input[type=range]').forEach(inp=>{
+    inp.addEventListener('input', e=>{
+      simState[e.target.dataset.id] = parseFloat(e.target.value);
+      renderSim();
+    });
+  });
+  // Effects: pull from currently focused (or first) variable
+  const focused = SIM_VARS[0]; // show effects of first var, others follow same pattern
+  // Show effects from ALL active variables aggregated
+  let allFx = [];
+  SIM_VARS.forEach(v=>{
+    const isMoved = Math.abs(simState[v.id] - v.init) > v.step * .5;
+    if (isMoved) {
+      v.effects(simState[v.id]).forEach(fx=>allFx.push({...fx, source:v.name[lang]}));
+    }
+  });
+  if (allFx.length === 0) {
+    allFx = SIM_VARS[0].effects(simState[SIM_VARS[0].id]).map(fx=>({...fx,source:SIM_VARS[0].name[lang]}));
+  }
+  const layerNames = {1:'PHYS', 2:'BIO', 3:'COG', 4:'SOC', 5:'DIG'};
+  const layerNamesZh = {1:'物理', 2:'生物', 3:'认知', 4:'社会', 5:'数字'};
+  document.getElementById('sim-effects').innerHTML = allFx.map(fx=>`
+    <div class="sim-fx l${fx.l}">
+      <div class="tag">L${fx.l} · ${lang==='zh'?layerNamesZh[fx.l]:layerNames[fx.l]}</div>
+      <div class="desc">${fx[lang]}</div>
+      <div class="delta ${fx.delta||''}">${fx.delta==='dn'?'▼':fx.delta==='up'?'▲':'•'}</div>
+    </div>
+  `).join('');
+}
+renderSim();
+
+/* ════════════════════════ MODULE 5 — KNOWLEDGE GRAPH ════════════════════════ */
+const kgFilters = new Set([1,2,3,4,5]);
+let kgSearch = '';
+let kgActive = null;
+function renderKG(){
+  const lang = isZh()?'zh':'en';
+  const svg = document.getElementById('kg-svg');
+  const visible = new Set(KG.nodes.filter(n=>{
+    if (!kgFilters.has(n.l)) return false;
+    if (kgSearch && !n.name[lang].toLowerCase().includes(kgSearch.toLowerCase()) && !n.id.includes(kgSearch.toLowerCase())) return false;
+    return true;
+  }).map(n=>n.id));
+  let html = '';
+  // Edges
+  KG.edges.forEach(([a,b])=>{
+    if (!visible.has(a) || !visible.has(b)) return;
+    const na = KG.nodes.find(n=>n.id===a), nb = KG.nodes.find(n=>n.id===b);
+    const isActive = kgActive===a || kgActive===b;
+    html += `<line x1="${na.x}" y1="${na.y}" x2="${nb.x}" y2="${nb.y}" stroke="${isActive?'#a78bfa':'rgba(167,139,250,.18)'}" stroke-width="${isActive?1.5:0.7}" opacity="${isActive?.9:.5}"/>`;
+  });
+  // Nodes
+  KG.nodes.forEach(n=>{
+    if (!visible.has(n.id)) return;
+    const isActive = kgActive===n.id;
+    const r = isActive ? 14 : 9;
+    html += `<g class="kg-node" data-id="${n.id}" style="cursor:pointer;">`;
+    html += `<circle cx="${n.x}" cy="${n.y}" r="${r}" fill="${isActive?`var(--L${n.l})`:`rgba(16,20,42,.95)`}" stroke="var(--L${n.l})" stroke-width="${isActive?2.5:1.4}"/>`;
+    html += `<text x="${n.x}" y="${n.y - r - 6}" text-anchor="middle" fill="#e9ecf6" font-family="IBM Plex Sans" font-size="11" font-weight="${isActive?600:400}" pointer-events="none">${n.name[lang]}</text>`;
+    html += `</g>`;
+  });
+  svg.innerHTML = html;
+  svg.querySelectorAll('.kg-node').forEach(g=>g.onclick=()=>{ kgActive = g.dataset.id; renderKG(); });
+  // Info
+  const info = document.getElementById('kg-info');
+  if (kgActive) {
+    const n = KG.nodes.find(x=>x.id===kgActive);
+    const linked = KG.edges.filter(([a,b])=>a===kgActive||b===kgActive).map(([a,b])=>{
+      const t = KG.nodes.find(x=>x.id===(a===kgActive?b:a));
+      return t.name[lang];
+    });
+    const layerNames = {1:'L1 · PHYSICAL', 2:'L2 · BIOLOGICAL', 3:'L3 · COGNITIVE', 4:'L4 · SOCIAL', 5:'L5 · DIGITAL'};
+    const layerNamesZh = {1:'L1 · 物理', 2:'L2 · 生物', 3:'L3 · 认知', 4:'L4 · 社会', 5:'L5 · 数字'};
+    info.classList.add('show');
+    info.innerHTML = `
+      <div class="layer" style="color:var(--L${n.l});">${lang==='zh'?layerNamesZh[n.l]:layerNames[n.l]}</div>
+      <div class="name">${n.name[lang]}</div>
+      <p>${n.desc[lang]}</p>
+      <div class="links"><strong>${lang==='zh'?'连接到':'Linked'}:</strong> ${linked.join(' · ')}</div>
+    `;
+  } else {
+    info.classList.remove('show');
+  }
+  // Filters
+  document.querySelectorAll('.kg-filter').forEach(b=>{
+    b.classList.toggle('active', kgFilters.has(+b.dataset.l));
+  });
+}
+document.querySelectorAll('.kg-filter').forEach(b=>b.onclick=()=>{
+  const l = +b.dataset.l;
+  if (kgFilters.has(l)) kgFilters.delete(l); else kgFilters.add(l);
+  renderKG();
+});
+document.getElementById('kg-search').addEventListener('input', e=>{ kgSearch = e.target.value; renderKG(); });
+renderKG();
+
+/* ════════════════════════ FADE-UP ════════════════════════ */
+const io = new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting && e.target.classList.add('in')), {threshold:.12});
+document.querySelectorAll('.section-head, .map-stage, .cause-stage, .hid-stage, .sim-stage, .kg-stage').forEach(el=>{
+  el.classList.add('fadeup'); io.observe(el);
+});
+</script>
+</body>
+</html>
